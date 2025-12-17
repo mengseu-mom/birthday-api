@@ -19,10 +19,13 @@ class BirthdayController extends Controller
         //  Store image in storage/app/public/birthdays
         $path = $request->file('image')->store('birthdays', 'public');
 
+        // Get full URL of the image
+        $imageUrl = Storage::url($path); 
+
         //  Save to database
         $birthday = Birthday::create([
             'name'  => $validated['name'],
-            'image' => $path,
+            'image' => $imageUrl,
         ]);
 
         return response()->json([
