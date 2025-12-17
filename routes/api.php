@@ -10,5 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/birthdays', [BirthdayController::class, 'store']);
 Route::get('/birthdays/token/{token}', [BirthdayController::class, 'showByToken']);
-Route::get('/image/{path}', [BirthdayController::class, 'image'])
-    ->where('path', '.*');
+
