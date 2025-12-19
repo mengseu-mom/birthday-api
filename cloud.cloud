@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "postdeploy": [
+      "php artisan storage:link"
+    ]
+  }
+}
