@@ -10,19 +10,19 @@ class BirthdayController extends Controller
 {
     public function store(Request $request)
     {
-        //  Validate first (Laravel will auto-return errors)
+        // Validate
         $validated = $request->validate([
             'name'  => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        //  Store image in storage/app/public/birthdays
-        $path = $request->file('image')->store('birthdays', 'public');
+        //  Store image (uses FILESYSTEM_DISK=s3)
+        $path = $request->file('image')->store('birthdays');
 
-        // Get full URL of the image
-        $imageUrl = Storage::url($path); 
+        //  Generate public URL (S3 / R2)
+        $imageUrl = Storage::url($path);
 
-        //  Save to database
+        // Save to DB
         $birthday = Birthday::create([
             'name'  => $validated['name'],
             'image' => $imageUrl,
